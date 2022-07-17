@@ -3,7 +3,7 @@ package invoice
 import (
 	"fmt"
 
-	zoho "github.com/schmorrison/Zoho"
+	zoho "github.com/iapon/zoho"
 )
 
 func (c *API) ListItems() (data ListItemsResponse, err error) {

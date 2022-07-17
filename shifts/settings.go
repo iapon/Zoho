@@ -3,7 +3,7 @@ package shifts
 import (
 	"fmt"
 
-	zoho "github.com/schmorrison/Zoho"
+	zoho "github.com/iapon/zoho"
 )
 
 // GetAllSchedules returns a list of all schedules

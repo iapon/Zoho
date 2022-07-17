@@ -2,7 +2,7 @@ package expense
 
 import (
 	"fmt"
-	zoho "github.com/schmorrison/Zoho"
+	zoho "github.com/iapon/zoho"
 )
 
 // GetExpenseReports will return a list of all submitted expense reports as specified by

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	zoho "github.com/schmorrison/Zoho"
+	zoho "github.com/iapon/zoho"
 )
 
 // GetAllTimeoffRequests returns a list of all employee timeoff requests

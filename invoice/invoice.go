@@ -1,20 +1,22 @@
 package invoice
 
 import (
-	zoho "github.com/schmorrison/Zoho"
 	"math/rand"
+
+	zoho "github.com/iapon/zoho"
 )
 
 const (
-	InvoiceAPIEndpoint       string = "https://invoice.zoho.com/api/v3/"
-	InvoiceAPIEndpointHeader string = "X-com-zoho-invoice-organizationid"
 	ContactsModule           string = "contacts"
 	ContactsPersonSubModule  string = "contactpersons"
 	InvoicesModule           string = "invoices"
+	InvoiceAPIEndpointHeader string = "X-com-zoho-invoice-organizationid"
 	ItemsModule              string = "items"
 	RecurringInvoicesModule  string = "recurringinvoices"
 	CustomerPaymentsModule   string = "customerpayments"
 )
+
+var InvoiceAPIEndpoint string = "https://invoice.zoho.com/api/v3/"
 
 type CustomFieldRequest struct {
 	CustomfieldID string `json:"customfield_id,omitempty"`
@@ -27,6 +29,10 @@ type CustomFieldRequest struct {
 type API struct {
 	*zoho.Zoho
 	id string
+}
+
+func (c *API) SetBooking() {
+	InvoiceAPIEndpoint = "https://books.zoho.com/api/v3/"
 }
 
 // New returns a *invoice.API with the provided zoho.Zoho as an embedded field

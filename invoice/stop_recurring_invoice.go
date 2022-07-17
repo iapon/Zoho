@@ -3,7 +3,7 @@ package invoice
 import (
 	"fmt"
 
-	zoho "github.com/schmorrison/Zoho"
+	zoho "github.com/iapon/zoho"
 )
 
 //https://www.zoho.com/invoice/api/v3/#Recurring_Invoices_Stop_a_Recurring_Invoice

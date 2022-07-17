@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"time"
 
-	zoho "github.com/schmorrison/Zoho"
+	zoho "github.com/iapon/zoho"
 )
 
 type Module = string

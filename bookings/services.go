@@ -2,7 +2,7 @@ package bookings
 
 import (
 	"fmt"
-	zoho "github.com/schmorrison/Zoho"
+	zoho "github.com/iapon/zoho"
 )
 
 func (c *API) FetchServices(workspacesID zoho.Parameter, serviceID zoho.Parameter, staffID zoho.Parameter) (data ServiceResponse, err error) {

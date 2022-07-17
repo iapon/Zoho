@@ -3,7 +3,7 @@ package invoice
 import (
 	"fmt"
 
-	zoho "github.com/schmorrison/Zoho"
+	zoho "github.com/iapon/zoho"
 )
 
 //https://www.zoho.com/invoice/api/v3/#Customer_Payments_Retrieve_a_payment

@@ -220,6 +220,12 @@ func resolveStatus(r *http.Response) string {
 	}
 	return ""
 }
+func ResolveStatus(r *http.Response) string {
+	if v, ok := HTTPStatusCodes[HTTPStatusCode(r.StatusCode)]; ok {
+		return v
+	}
+	return ""
+}
 
 // HTTPHeader is a type for defining possible HTTPHeaders that zoho request could return
 type HTTPHeader string

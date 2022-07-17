@@ -2,7 +2,7 @@ package crm
 
 import (
 	"fmt"
-	zoho "github.com/schmorrison/Zoho"
+	zoho "github.com/iapon/zoho"
 )
 
 // GetRoles will return the list of roles in this CRM organization

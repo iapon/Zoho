@@ -40,6 +40,9 @@ func New() *Zoho {
 func (z *Zoho) SetTokenManager(tm TokenLoaderSaver) {
 	z.tokenManager = tm
 }
+func (z *Zoho) GetOauthToken() string {
+	return z.oauth.token.AccessToken
+}
 
 // SetTokensFile can be used to set the file location of the token persistence location,
 // by default tokens are stored in a file in the current directory called '.tokens.zoho'
