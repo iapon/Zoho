@@ -2,8 +2,10 @@ package invoice
 
 import (
 	"fmt"
+	"log"
 
 	zoho "github.com/iapon/zoho"
+	"github.com/kr/pretty"
 )
 
 //https://www.zoho.com/invoice/api/v3/#Invoices_Create_an_invoice
@@ -34,6 +36,7 @@ func (c *API) CreateInvoice(request interface{}, pars map[string]zoho.Parameter,
 		endpoint.URLParameters[k] = v
 	}*/
 
+	log.Printf("%# v", pretty.Formatter(request))
 	err = c.Zoho.HTTPRequest(&endpoint)
 	if err != nil {
 		return CreateInvoiceResponse{}, fmt.Errorf("Failed to create invoice: %s", err)
@@ -109,8 +112,8 @@ type CreateInvoiceRequest struct {
 	CustomFields          []CustomFieldRequest `json:"custom_fields,omitempty"`
 	ProjectId             string               `json:"project_id,omitempty"`
 	LineItems             []InvoiceLineItem    `json:"line_items"`
-	PaymentOptions        PaymentOptions       `json:"payment_options"`
-	AllowPartialPayments  bool                 `json:"allow_partial_payments"`
+	PaymentOptions        PaymentOptions       `json:"payment_options,omitempty"`
+	AllowPartialPayments  bool                 `json:"allow_partial_payments,omitempty"`
 	CustomBody            string               `json:"custom_body,omitempty"`
 	CustomSubject         string               `json:"custom_subject,omitempty"`
 	Notes                 string               `json:"notes,omitempty"`

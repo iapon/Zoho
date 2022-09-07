@@ -19,15 +19,16 @@ import (
 
 // Endpoint defines the data required to interact with most Zoho REST api endpoints
 type Endpoint struct {
-	Method        HTTPMethod
-	URL           string
-	Name          string
-	ResponseData  interface{}
-	RequestBody   interface{}
-	URLParameters map[string]Parameter
-	Headers       map[string]string
-	BodyFormat    BodyFormat
-	Attachment    string
+	Method         HTTPMethod
+	URL            string
+	Name           string
+	ResponseData   interface{}
+	RequestBody    interface{}
+	URLParameters  map[string]Parameter
+	Headers        map[string]string
+	BodyFormat     BodyFormat
+	Attachment     string
+	AttachmentByte []byte
 }
 
 // Parameter is used to provide URL Parameters to zoho endpoints
@@ -38,6 +39,7 @@ const (
 	JSON        = ""
 	JSON_STRING = "jsonString"
 	FILE        = "file"
+	FILE_BYTE   = "file_byte"
 	URL         = "url" // Added new BodyFormat option
 )
 
@@ -85,12 +87,26 @@ func (z *Zoho) HTTPRequest(endpoint *Endpoint) (err error) {
 		}
 	}
 
-	if endpoint.BodyFormat == JSON_STRING || endpoint.BodyFormat == FILE {
+	if endpoint.BodyFormat == JSON_STRING || endpoint.BodyFormat == FILE || endpoint.BodyFormat == FILE_BYTE {
 		// Create a multipart form
 		var b bytes.Buffer
 		w := multipart.NewWriter(&b)
 
 		switch endpoint.BodyFormat {
+		case FILE_BYTE:
+			// Create the correct form field
+			part, err := w.CreateFormFile("attachment", filepath.Base(endpoint.Attachment))
+			if err != nil {
+				return err
+			}
+			// copy the file contents to the form
+			if _, err = part.Write(endpoint.AttachmentByte); err != nil {
+				return err
+			}
+			err = w.Close()
+			if err != nil {
+				return err
+			}
 		case JSON_STRING:
 			// Use the form to create the proper field
 			fw, err := w.CreateFormField("JSONString")
