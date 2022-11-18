@@ -90,5 +90,6 @@ type GetContactResponse struct {
 		Notes            string                  `json:"notes"`
 		CreatedTime      string                  `json:"created_time"`
 		LastModifiedTime string                  `json:"last_modified_time"`
+		OwnerCrmID       string                  `json:"crm_owner_id"`
 	} `json:"contact"`
 }

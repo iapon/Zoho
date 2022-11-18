@@ -194,13 +194,13 @@ type Invoice struct {
 	Notes                  string         `json:"notes,omitempty"`
 	Terms                  string         `json:"terms,omitempty"`
 	CustomFields           []struct {
-		CustomfieldId string `json:"customfield_id,omitempty"`
-		DataType      string `json:"data_type,omitempty"`
-		Index         int64  `json:"index,omitempty"`
-		Label         string `json:"label,omitempty"`
-		ShowOnPdf     bool   `json:"show_on_pdf,omitempty"`
-		ShowInAllPdf  bool   `json:"show_in_all_pdf,omitempty"`
-		Value         string `json:"value,omitempty"`
+		CustomfieldId string      `json:"customfield_id,omitempty"`
+		DataType      string      `json:"data_type,omitempty"`
+		Index         int64       `json:"index,omitempty"`
+		Label         string      `json:"label,omitempty"`
+		ShowOnPdf     bool        `json:"show_on_pdf,omitempty"`
+		ShowInAllPdf  bool        `json:"show_in_all_pdf,omitempty"`
+		Value         interface{} `json:"value,omitempty"`
 	} `json:"custom_fields,omitempty"`
 	TemplateId       string `json:"template_id,omitempty"`
 	TemplateName     string `json:"template_name,omitempty"`

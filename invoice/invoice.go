@@ -19,9 +19,9 @@ const (
 var InvoiceAPIEndpoint string = "https://invoice.zoho.com/api/v3/"
 
 type CustomFieldRequest struct {
-	CustomfieldID string `json:"customfield_id,omitempty"`
-	Label         string `json:"label"`
-	Value         string `json:"value,omitempty"`
+	CustomfieldID string      `json:"customfield_id,omitempty"`
+	Label         string      `json:"label"`
+	Value         interface{} `json:"value,omitempty"`
 }
 
 // API is used for interacting with the Zoho expense API
