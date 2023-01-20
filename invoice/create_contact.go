@@ -2,8 +2,10 @@ package invoice
 
 import (
 	"fmt"
+	"log"
 
 	zoho "github.com/iapon/zoho"
+	"github.com/kr/pretty"
 )
 
 //https://www.zoho.com/invoice/api/v3/#Contacts_Create_a_Contact
@@ -28,7 +30,7 @@ func (c *API) CreateContact(request interface{}, enablePortal bool) (data Create
 	/*for k, v := range params {
 		endpoint.URLParameters[k] = v
 	}*/
-
+	log.Printf("%# v", pretty.Formatter(request))
 	err = c.Zoho.HTTPRequest(&endpoint)
 	if err != nil {
 		return CreateContactResponse{}, fmt.Errorf("Failed to create contact: %s", err)
@@ -88,7 +90,7 @@ type CreateContactRequest struct {
 	PaymentTerms     int64                   `json:"payment_terms,omitempty"`
 	CurrencyID       string                  `json:"currency_id,omitempty"`
 	Website          string                  `json:"website,omitempty"`
-	CustomFields     []CustomFieldRequest    `json:"custom_fields"`
+	CustomFields     []CustomFieldRequest    `json:"custom_fields,omitempty"`
 	BillingAddress   ContactAddress          `json:"billing_address"`
 	ShippingAddress  ContactAddress          `json:"shipping_address"`
 	ContactPersons   []ContactPerson         `json:"contact_persons"`
@@ -142,7 +144,7 @@ type CreateContactResponse struct {
 			Value string `json:"value"`
 			Index int64  `json:"index"`
 			Label string `json:"label"`
-		} `json:"custom_fields"`
+		} `json:"custom_fields,omitempty"`
 		BillingAddress   ContactAddress          `json:"billing_address"`
 		ShippingAddress  ContactAddress          `json:"shipping_address"`
 		Facebook         string                  `json:"facebook"`
