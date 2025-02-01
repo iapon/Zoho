@@ -6,13 +6,13 @@ import (
 	zoho "github.com/iapon/zoho"
 )
 
-//https://www.zoho.com/invoice/api/v3/#Invoices_List_invoices
-//func (c *API) ListInvoices(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data ListInvoicesResponse, err error) {
+// https://www.zoho.com/invoice/api/v3/#Invoices_List_invoices
+// func (c *API) ListInvoices(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data ListInvoicesResponse, err error) {
 func (c *API) ListInvoices() (data ListInvoicesResponse, err error) {
 
 	endpoint := zoho.Endpoint{
 		Name:          InvoicesModule,
-		URL:           fmt.Sprintf("https://invoice.zoho.%s/api/v3/%s", c.ZohoTLD, InvoicesModule),
+		URL:           fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s", c.ZohoTLD, InvoicesModule),
 		Method:        zoho.HTTPGet,
 		ResponseData:  &ListInvoicesResponse{},
 		URLParameters: map[string]zoho.Parameter{

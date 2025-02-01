@@ -6,14 +6,14 @@ import (
 	zoho "github.com/iapon/zoho"
 )
 
-//https://www.zoho.com/invoice/api/v3/#Contact_Persons_Delete_a_contact_person
-//func (c *API) DeleteContactPerson(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data DeleteContactPersonResponse, err error) {
+// https://www.zoho.com/invoice/api/v3/#Contact_Persons_Delete_a_contact_person
+// func (c *API) DeleteContactPerson(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data DeleteContactPersonResponse, err error) {
 func (c *API) DeleteContactPerson(contactPersonID string) (data DeleteContactPersonResponse, err error) {
 
 	endpoint := zoho.Endpoint{
 		Name: ContactsModule,
 		URL: fmt.Sprintf(
-			"https://invoice.zoho.%s/api/v3/%s/%s/%s", c.ZohoTLD,
+			"https://www.zohoapis.%s/invoice/v3/%s/%s/%s", c.ZohoTLD,
 			ContactsModule,
 			ContactsPersonSubModule,
 			contactPersonID,

@@ -16,7 +16,7 @@ const (
 	CustomerPaymentsModule   string = "customerpayments"
 )
 
-var InvoiceAPIEndpoint string = "https://invoice.zoho.com/api/v3/"
+var InvoiceAPIEndpoint string = "https://www.zohoapis.com/invoice/v3/"
 
 type CustomFieldRequest struct {
 	CustomfieldID string      `json:"customfield_id,omitempty"`
@@ -32,7 +32,7 @@ type API struct {
 }
 
 func (c *API) SetBooking() {
-	InvoiceAPIEndpoint = "https://books.zoho.com/api/v3/"
+	InvoiceAPIEndpoint = "https://www.zohoapis.com/books/v3/"
 }
 
 // New returns a *invoice.API with the provided zoho.Zoho as an embedded field

@@ -6,13 +6,13 @@ import (
 	zoho "github.com/iapon/zoho"
 )
 
-//https://www.zoho.com/invoice/api/v3/#Customer_Payments_Retrieve_a_payment
-//func (c *API) RetrievePayment(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data RetrievePaymentResponse, err error) {
+// https://www.zoho.com/invoice/api/v3/#Customer_Payments_Retrieve_a_payment
+// func (c *API) RetrievePayment(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data RetrievePaymentResponse, err error) {
 func (c *API) RetrievePayment(paymentId string) (data RetrievePaymentResponse, err error) {
 
 	endpoint := zoho.Endpoint{
 		Name:         CustomerPaymentsModule,
-		URL:          fmt.Sprintf("https://invoice.zoho.%s/api/v3/%s/%s", c.ZohoTLD, CustomerPaymentsModule, paymentId),
+		URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s/%s", c.ZohoTLD, CustomerPaymentsModule, paymentId),
 		Method:       zoho.HTTPGet,
 		ResponseData: &RetrievePaymentResponse{},
 		URLParameters: map[string]zoho.Parameter{

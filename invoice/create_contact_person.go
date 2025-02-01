@@ -6,13 +6,13 @@ import (
 	zoho "github.com/iapon/zoho"
 )
 
-//https://www.zoho.com/invoice/api/v3/#Contact_Persons_Create_a_contact_person
-//func (c *API) CreateContactPerson(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data CreateContactPersonResponse, err error) {
+// https://www.zoho.com/invoice/api/v3/#Contact_Persons_Create_a_contact_person
+// func (c *API) CreateContactPerson(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data CreateContactPersonResponse, err error) {
 func (c *API) CreateContactPerson(request interface{}) (data CreateContactPersonResponse, err error) {
 
 	endpoint := zoho.Endpoint{
 		Name:         ContactsModule,
-		URL:          fmt.Sprintf("https://invoice.zoho.%s/api/v3/%s/%s", c.ZohoTLD, ContactsModule, ContactsPersonSubModule),
+		URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s/%s", c.ZohoTLD, ContactsModule, ContactsPersonSubModule),
 		Method:       zoho.HTTPPost,
 		ResponseData: &CreateContactPersonResponse{},
 		URLParameters: map[string]zoho.Parameter{

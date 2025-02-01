@@ -39,7 +39,7 @@ type CreateItemRequest struct {
 func (c *API) CreateItem(request CreateItemRequest) (data CreateItemResponse, err error) {
 	endpoint := zoho.Endpoint{
 		Name:         ItemsModule,
-		URL:          fmt.Sprintf("https://invoice.zoho.%s/api/v3/%s", c.ZohoTLD, ItemsModule),
+		URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s", c.ZohoTLD, ItemsModule),
 		Method:       zoho.HTTPPost,
 		ResponseData: &CreateItemResponse{},
 		RequestBody:  request,

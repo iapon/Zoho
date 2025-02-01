@@ -8,8 +8,8 @@ import (
 	"github.com/kr/pretty"
 )
 
-//https://www.zoho.com/invoice/api/v3/#Contacts_Create_a_Contact
-//func (c *API) CreateContact(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data ListContactsResponse, err error) {
+// https://www.zoho.com/invoice/api/v3/#Contacts_Create_a_Contact
+// func (c *API) CreateContact(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data ListContactsResponse, err error) {
 func (c *API) CreateContact(request interface{}, enablePortal bool) (data CreateContactResponse, err error) {
 
 	endpoint := zoho.Endpoint{
@@ -45,7 +45,7 @@ func (c *API) CreateContact(request interface{}, enablePortal bool) (data Create
 		if enablePortal {
 			endpoint := zoho.Endpoint{
 				Name:         ContactsModule,
-				URL:          fmt.Sprintf("https://invoice.zoho.%s/api/v3/%s/%s/portal/enable", c.ZohoTLD, ContactsModule, v.Contact.ContactID),
+				URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s/%s/portal/enable", c.ZohoTLD, ContactsModule, v.Contact.ContactID),
 				Method:       zoho.HTTPPost,
 				ResponseData: &EnableContactDashboardResponse{},
 				URLParameters: map[string]zoho.Parameter{

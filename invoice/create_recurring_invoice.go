@@ -6,13 +6,13 @@ import (
 	zoho "github.com/iapon/zoho"
 )
 
-//https://www.zoho.com/invoice/api/v3/#Recurring_Invoices_Create_a_Recurring_Invoice
-//func (c *API) CreateRecurringInvoice(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data ListContactsResponse, err error) {
+// https://www.zoho.com/invoice/api/v3/#Recurring_Invoices_Create_a_Recurring_Invoice
+// func (c *API) CreateRecurringInvoice(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data ListContactsResponse, err error) {
 func (c *API) CreateRecurringInvoice(request interface{}) (data CreateRecurringInvoiceResponse, err error) {
 
 	endpoint := zoho.Endpoint{
 		Name:         RecurringInvoicesModule,
-		URL:          fmt.Sprintf("https://invoice.zoho.%s/api/v3/%s", c.ZohoTLD, RecurringInvoicesModule),
+		URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s", c.ZohoTLD, RecurringInvoicesModule),
 		Method:       zoho.HTTPPost,
 		ResponseData: &CreateRecurringInvoiceResponse{},
 		URLParameters: map[string]zoho.Parameter{
