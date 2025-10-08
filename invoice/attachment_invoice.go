@@ -73,7 +73,7 @@ type DeleteAttachmentResponse struct {
 	Message string `json:"message"`
 }
 
-func (c *API) ListInvoiceAttachments(invoiceId string) (data []AttachmentResponse, err error) {
+func (c *API) ListInvoiceAttachments(invoiceId string) (data ListAttachmentResponse, err error) {
 
 	endpoint := zoho.Endpoint{
 		URL:    fmt.Sprintf("%s%s/%s/attachment", InvoiceAPIEndpoint, InvoicesModule, invoiceId),
@@ -85,20 +85,25 @@ func (c *API) ListInvoiceAttachments(invoiceId string) (data []AttachmentRespons
 		Headers: map[string]string{
 			InvoiceAPIEndpointHeader: c.OrganizationID,
 		},
-		ResponseData: &[]AttachmentResponse{},
+		ResponseData: &ListAttachmentResponse{},
 	}
 
 	err = c.Zoho.HTTPRequest(&endpoint)
 	if err != nil {
-		return []AttachmentResponse{}, fmt.Errorf("Failed to list invoice attachments: %s", err)
+		return ListAttachmentResponse{}, fmt.Errorf("Failed to list invoice attachments: %s", err)
 	}
 
-	if v, ok := endpoint.ResponseData.(*[]AttachmentResponse); ok {
+	if v, ok := endpoint.ResponseData.(*ListAttachmentResponse); ok {
 		return *v, nil
 	}
-	return []AttachmentResponse{}, fmt.Errorf("Data retrieved was not '[]AttachmentResponse'")
+	return ListAttachmentResponse{}, fmt.Errorf("Data retrieved was not 'ListAttachmentResponse'")
 }
 
+type ListAttachmentResponse struct {
+	Code    int                  `json:"code"`
+	Message string               `json:"message"`
+	Data    []AttachmentResponse `json:"data"`
+}
 type AttachmentResponse struct {
 	ID          string          `json:"id"`
 	CreatedTime string          `json:"created_time"`
