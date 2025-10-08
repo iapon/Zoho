@@ -38,3 +38,37 @@ func (c *API) AttachInvoiceFile(request interface{}, invoiceId string, file []by
 	}
 	return EmailInvoiceResponse{}, fmt.Errorf("data retrieved was not 'EmailInvoiceResponse'")
 }
+func (c *API) DeleteInvoiceFile(request interface{}, invoiceId, attachID string) (data DeleteAttachmentResponse, err error) {
+	endpoint := zoho.Endpoint{
+		URL:    fmt.Sprintf("%s%s/%s/attachment/%s", InvoiceAPIEndpoint, InvoicesModule, invoiceId, attachID),
+		Method: zoho.HTTPDelete,
+		URLParameters: map[string]zoho.Parameter{
+			"filter_by": "",
+		},
+		RequestBody: &request,
+		BodyFormat:  zoho.JSON_STRING,
+		Headers: map[string]string{
+			InvoiceAPIEndpointHeader: c.OrganizationID,
+		},
+		ResponseData: &DeleteAttachmentResponse{},
+	}
+
+	err = c.Zoho.HTTPRequest(&endpoint)
+	if err != nil {
+		return DeleteAttachmentResponse{}, fmt.Errorf("Failed to delete file: %s", err)
+	}
+
+	if v, ok := endpoint.ResponseData.(*DeleteAttachmentResponse); ok {
+		// Check if the request succeeded
+		if v.Code != 0 {
+			return *v, fmt.Errorf("Failed to delete file: %s", v.Message)
+		}
+		return *v, nil
+	}
+	return DeleteAttachmentResponse{}, fmt.Errorf("Data retrieved was not 'DeleteAttachmentResponse'")
+}
+
+type DeleteAttachmentResponse struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+}
