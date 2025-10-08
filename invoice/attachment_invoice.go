@@ -38,9 +38,9 @@ func (c *API) AttachInvoiceFile(request interface{}, invoiceId string, file []by
 	}
 	return EmailInvoiceResponse{}, fmt.Errorf("data retrieved was not 'EmailInvoiceResponse'")
 }
-func (c *API) DeleteInvoiceFile(request interface{}, invoiceId, attachID string) (data DeleteAttachmentResponse, err error) {
+func (c *API) DeleteInvoiceFile(request interface{}, invoiceId string) (data DeleteAttachmentResponse, err error) {
 	endpoint := zoho.Endpoint{
-		URL:    fmt.Sprintf("%s%s/%s/documents/%s", InvoiceAPIEndpoint, InvoicesModule, invoiceId, attachID),
+		URL:    fmt.Sprintf("%s%s/%s/documents", InvoiceAPIEndpoint, InvoicesModule, invoiceId),
 		Method: zoho.HTTPDelete,
 		URLParameters: map[string]zoho.Parameter{
 			"filter_by": "",
