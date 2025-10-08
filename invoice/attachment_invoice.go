@@ -72,3 +72,41 @@ type DeleteAttachmentResponse struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
 }
+
+func (c *API) ListInvoiceAttachments(invoiceId string) (data []AttachmentResponse, err error) {
+
+	endpoint := zoho.Endpoint{
+		URL:    fmt.Sprintf("%s%s/%s/attachment", InvoiceAPIEndpoint, InvoicesModule, invoiceId),
+		Method: zoho.HTTPGet,
+		URLParameters: map[string]zoho.Parameter{
+			"filter_by": "",
+		},
+		BodyFormat: zoho.JSON_STRING,
+		Headers: map[string]string{
+			InvoiceAPIEndpointHeader: c.OrganizationID,
+		},
+		ResponseData: &[]AttachmentResponse{},
+	}
+
+	err = c.Zoho.HTTPRequest(&endpoint)
+	if err != nil {
+		return []AttachmentResponse{}, fmt.Errorf("Failed to list invoice attachments: %s", err)
+	}
+
+	if v, ok := endpoint.ResponseData.(*[]AttachmentResponse); ok {
+		return *v, nil
+	}
+	return []AttachmentResponse{}, fmt.Errorf("Data retrieved was not '[]AttachmentResponse'")
+}
+
+type AttachmentResponse struct {
+	ID          string          `json:"id"`
+	CreatedTime string          `json:"created_time"`
+	Owner       AttachmentOwner `json:"owner"`
+	ParentID    string          `json:"parent_id"`
+}
+type AttachmentOwner struct {
+	Name  string `json:"name"`
+	ID    string `json:"id"`
+	Email string `json:"email"`
+}
