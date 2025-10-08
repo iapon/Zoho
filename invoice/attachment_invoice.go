@@ -40,7 +40,7 @@ func (c *API) AttachInvoiceFile(request interface{}, invoiceId string, file []by
 }
 func (c *API) DeleteInvoiceFile(request interface{}, invoiceId string) (data DeleteAttachmentResponse, err error) {
 	endpoint := zoho.Endpoint{
-		URL:    fmt.Sprintf("%s%s/%s/documents", InvoiceAPIEndpoint, InvoicesModule, invoiceId),
+		URL:    fmt.Sprintf("%s%s/%s/attachment", InvoiceAPIEndpoint, InvoicesModule, invoiceId),
 		Method: zoho.HTTPDelete,
 		URLParameters: map[string]zoho.Parameter{
 			"filter_by": "",
