@@ -67,7 +67,7 @@ func (c *API) DeleteInvoiceFile(request interface{}, invoiceId string) (data Del
 	}
 	return DeleteAttachmentResponse{}, fmt.Errorf("Data retrieved was not 'DeleteAttachmentResponse'")
 }
-func (c *API) GetInvoicePDF(invoiceId string) ([]byte, error) {
+func (c *API) GetAttachment(invoiceId string) ([]byte, error) {
 	err := c.CheckForSavedTokens()
 	if err == zoho.ErrTokenExpired {
 		err := c.RefreshTokenRequest()
