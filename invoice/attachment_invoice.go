@@ -2,6 +2,9 @@ package invoice
 
 import (
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 
 	zoho "github.com/iapon/zoho"
 )
@@ -76,7 +79,7 @@ func (c *API) GetAttachment(invoiceId string) ([]byte, error) {
 		}
 	}
 	client := &http.Client{}
-	endpointURL := fmt.Sprintf("%s%s/%s/attachment", InvoiceAPIEndpoint, InvoicesModule, invoiceId),
+	endpointURL := fmt.Sprintf("%s%s/%s/attachment", InvoiceAPIEndpoint, InvoicesModule, invoiceId)
 	q := url.Values{}
 	q.Set("organization_id", c.OrganizationID)
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s?%s", endpointURL, q.Encode()), nil)
@@ -100,7 +103,6 @@ func (c *API) GetAttachment(invoiceId string) ([]byte, error) {
 	}
 	return body, nil
 }
-
 
 type DeleteAttachmentResponse struct {
 	Code    int    `json:"code"`
