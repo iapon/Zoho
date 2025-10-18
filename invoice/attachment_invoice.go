@@ -67,6 +67,30 @@ func (c *API) DeleteInvoiceFile(request interface{}, invoiceId string) (data Del
 	}
 	return DeleteAttachmentResponse{}, fmt.Errorf("Data retrieved was not 'DeleteAttachmentResponse'")
 }
+func (c *API) GetAttachment(invoiceId string) (data []byte, err error) {
+	endpoint := zoho.Endpoint{
+		URL:    fmt.Sprintf("%s%s/%s/attachment", InvoiceAPIEndpoint, InvoicesModule, invoiceId),
+		Method: zoho.HTTPGet,
+		URLParameters: map[string]zoho.Parameter{
+			"filter_by": "",
+		},
+		Headers: map[string]string{
+			InvoiceAPIEndpointHeader: c.OrganizationID,
+		},
+		ResponseData: []byte{},
+	}
+
+	err = c.Zoho.HTTPRequest(&endpoint)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to get attachment: %s", err)
+	}
+
+	if v, ok := endpoint.ResponseData.([]byte); ok {
+		// Check if the request succeeded
+		return v, nil
+	}
+	return nil, fmt.Errorf("Data retrieved was not 'GetAttachmentResponse'")
+}
 
 type DeleteAttachmentResponse struct {
 	Code    int    `json:"code"`
