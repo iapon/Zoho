@@ -67,30 +67,40 @@ func (c *API) DeleteInvoiceFile(request interface{}, invoiceId string) (data Del
 	}
 	return DeleteAttachmentResponse{}, fmt.Errorf("Data retrieved was not 'DeleteAttachmentResponse'")
 }
-func (c *API) GetAttachment(invoiceId string) (data []byte, err error) {
-	endpoint := zoho.Endpoint{
-		URL:    fmt.Sprintf("%s%s/%s/attachment", InvoiceAPIEndpoint, InvoicesModule, invoiceId),
-		Method: zoho.HTTPGet,
-		URLParameters: map[string]zoho.Parameter{
-			"filter_by": "",
-		},
-		Headers: map[string]string{
-			InvoiceAPIEndpointHeader: c.OrganizationID,
-		},
-		ResponseData: []byte{},
+func (c *API) GetInvoicePDF(invoiceId string) ([]byte, error) {
+	err := c.CheckForSavedTokens()
+	if err == zoho.ErrTokenExpired {
+		err := c.RefreshTokenRequest()
+		if err != nil {
+			return nil, fmt.Errorf("Failed to refresh the access token: %s: %s", InvoicesModule, err)
+		}
 	}
-
-	err = c.Zoho.HTTPRequest(&endpoint)
+	client := &http.Client{}
+	endpointURL := fmt.Sprintf("%s%s/%s/attachment", InvoiceAPIEndpoint, InvoicesModule, invoiceId),
+	q := url.Values{}
+	q.Set("organization_id", c.OrganizationID)
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s?%s", endpointURL, q.Encode()), nil)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to get attachment: %s", err)
+		return nil, fmt.Errorf("Failed to create a request for %s: %s", InvoicesModule, err)
 	}
 
-	if v, ok := endpoint.ResponseData.([]byte); ok {
-		// Check if the request succeeded
-		return v, nil
+	// Add global authorization header
+	req.Header.Add("Authorization", "Zoho-oauthtoken "+c.GetOauthToken())
+	req.Header.Add(InvoiceAPIEndpointHeader, c.OrganizationID)
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to perform request for %s: %s", InvoicesModule, err)
 	}
-	return nil, fmt.Errorf("Data retrieved was not 'GetAttachmentResponse'")
+
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to read body of response for %s: got status %s: %s", InvoicesModule, zoho.ResolveStatus(resp), err)
+	}
+	return body, nil
 }
+
 
 type DeleteAttachmentResponse struct {
 	Code    int    `json:"code"`
