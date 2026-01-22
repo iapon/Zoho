@@ -9,8 +9,8 @@ import (
 // https://www.zoho.com/invoice/api/v3/contact-persons/#update-a-contact-person
 func (c *API) UpdateContactPerson(request any, contactPersonID string) (data UpdateContactPersonResponse, err error) {
 	endpoint := zoho.Endpoint{
-		Name:         ContactsModule,
-		URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s/%s/%s", c.ZohoTLD, ContactsModule, ContactsPersonSubModule, contactPersonID),
+		Name:         InvoicesModule,
+		URL:          fmt.Sprintf("%s%s/%s/%s", InvoiceAPIEndpoint, ContactsModule, ContactsPersonSubModule, contactPersonID),
 		Method:       zoho.HTTPPut,
 		ResponseData: &UpdateContactPersonResponse{},
 		URLParameters: map[string]zoho.Parameter{

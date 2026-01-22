@@ -11,8 +11,8 @@ import (
 func (c *API) UpdateContact(request interface{}, contactId string) (data UpdateContactResponse, err error) {
 
 	endpoint := zoho.Endpoint{
-		Name:         ContactsModule,
-		URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s/%s", c.ZohoTLD, ContactsModule, contactId),
+		Name:         InvoicesModule,
+		URL:          fmt.Sprintf("%s%s/%s", InvoiceAPIEndpoint, ContactsModule, contactId),
 		Method:       zoho.HTTPPut,
 		ResponseData: &UpdateContactResponse{},
 		URLParameters: map[string]zoho.Parameter{
