@@ -9,14 +9,14 @@ import (
 // https://www.zohoapis.com/invoice/v3/contacts/460000000026049/contactpersons/460000000026051 \
 func (c *API) GetContactPerson(contactID, contactPersonID string) (data GetContactPersonResponse, err error) {
 	endpoint := zoho.Endpoint{
-		Name:         ContactsModule,
+		Name:         InvoicesModule,
 		URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s/%s/%s/%s", c.ZohoTLD, ContactsModule, contactID, ContactsPersonSubModule, contactPersonID),
 		Method:       zoho.HTTPGet,
 		ResponseData: &GetContactPersonResponse{},
 		URLParameters: map[string]zoho.Parameter{
 			"filter_by": "",
 		},
-		BodyFormat: zoho.JSON_STRING,
+		BodyFormat: zoho.JSON,
 		Headers: map[string]string{
 			InvoiceAPIEndpointHeader: c.OrganizationID,
 		},

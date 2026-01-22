@@ -9,7 +9,6 @@ import (
 // https://www.zoho.com/invoice/api/v3/#Contacts_Get_a_Contact
 // func (c *API) GetContact(request interface{}, OrganizationID string, params map[string]zoho.Parameter) (data GetContactResponse, err error) {
 func (c *API) GetContact(contactId string) (data GetContactResponse, err error) {
-
 	endpoint := zoho.Endpoint{
 		Name:         InvoicesModule,
 		URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s/%s", c.ZohoTLD, ContactsModule, contactId),
@@ -18,7 +17,7 @@ func (c *API) GetContact(contactId string) (data GetContactResponse, err error) 
 		URLParameters: map[string]zoho.Parameter{
 			"filter_by": "",
 		},
-		BodyFormat: zoho.JSON_STRING,
+		BodyFormat: zoho.JSON,
 		Headers: map[string]string{
 			InvoiceAPIEndpointHeader: c.OrganizationID,
 		},
