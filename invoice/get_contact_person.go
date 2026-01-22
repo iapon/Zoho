@@ -10,7 +10,7 @@ import (
 func (c *API) GetContactPerson(contactID, contactPersonID string) (data GetContactPersonResponse, err error) {
 	endpoint := zoho.Endpoint{
 		Name:         ContactsModule,
-		URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s/%s/%s", c.ZohoTLD, ContactsModule, ContactsPersonSubModule, contactPersonID),
+		URL:          fmt.Sprintf("https://www.zohoapis.%s/invoice/v3/%s/%s/%s/%s", c.ZohoTLD, ContactsModule, contactID, ContactsPersonSubModule, contactPersonID),
 		Method:       zoho.HTTPGet,
 		ResponseData: &GetContactPersonResponse{},
 		URLParameters: map[string]zoho.Parameter{
