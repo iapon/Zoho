@@ -158,14 +158,19 @@ type CreateContactResponse struct {
 }
 
 type ContactPerson struct {
+	ContactID        string `json:"contact_id,omitempty"`
 	ContactPersonID  string `json:"contact_person_id,omitempty"`
 	Salutation       string `json:"salutation,omitempty"`
-	FirstName        string `json:"first_name"`
-	LastName         string `json:"last_name"`
-	Email            string `json:"email"`
-	Phone            string `json:"phone"`
+	FirstName        string `json:"first_name,omitempty"`
+	LastName         string `json:"last_name,omitempty"`
+	Email            string `json:"email,omitempty"`
+	Phone            string `json:"phone,omitempty"`
 	Mobile           string `json:"mobile,omitempty"`
 	IsPrimaryContact bool   `json:"is_primary_contact,omitempty"`
+	Skype            string `json:"skype,omitempty"`
+	Designation      string `json:"designation,omitempty"`
+	Department       string `json:"department,omitempty"`
+	IsAddedInPortal  *bool  `json:"is_added_in_portal"`
 }
 
 type ContactAddress struct {

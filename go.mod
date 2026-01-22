@@ -1,6 +1,6 @@
 module github.com/iapon/zoho
 
-go 1.18
+go 1.22.12
 
 require (
 	github.com/hashicorp/go-retryablehttp v0.7.1
@@ -11,6 +11,7 @@ require (
 
 require (
 	github.com/golang/protobuf v1.3.1 // indirect
+	github.com/guregu/null/v6 v6.0.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.6.1 // indirect

@@ -59,6 +59,7 @@ type CreateContactPersonRequest struct {
 	EnablePortal bool   `json:"enable_portal"`
 }
 
+
 type CreateContactPersonResponse struct {
 	Code          int    `json:"code"`
 	Message       string `json:"message"`
